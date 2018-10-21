@@ -18,8 +18,8 @@ public class LogAdapter implements MongoAdapter.Adapter<LogBson> {
     @Override
     public Document reverseAdapt(LogBson logBson) {
         return new Document("source", logBson.getSource())
-                .append("message", logBson.getTime())
-                .append("level", logBson.getMessage())
-                .append("time", logBson.getLevel());
+                .append("message", logBson.getMessage())
+                .append("level", logBson.getLevel())
+                .append("time", logBson.getTime());
     }
 }
