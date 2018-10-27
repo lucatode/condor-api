@@ -7,12 +7,14 @@ import com.luca.condorapi.adapter.repository.logger.bson.LogBson;
 import com.luca.condorapi.domain.Log;
 import com.luca.condorapi.domain.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.Optional;
@@ -33,7 +35,10 @@ public class LoggerController {
   }
 
   @GetMapping("/getLogs")
-  public String greeting() {return "";}
+  public @ResponseBody
+  ResponseEntity<String> get() {
+    return new ResponseEntity<String>("", HttpStatus.OK);
+  }
 
   @PutMapping(name="info", value = "/info", consumes=MediaType.APPLICATION_JSON_VALUE )
   public ResponseEntity<Void> info(@RequestBody LogRepresentation logRepresentation){
