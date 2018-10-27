@@ -1,5 +1,9 @@
 package com.luca.condorapi.adapter.controller;
 
+import com.luca.condorapi.adapter.repository.MongoAdapter;
+import com.luca.condorapi.adapter.repository.logger.DefaultLogRepository;
+import com.luca.condorapi.adapter.repository.logger.LogAdapter;
+import com.luca.condorapi.adapter.repository.logger.bson.LogBson;
 import com.luca.condorapi.domain.Log;
 import com.luca.condorapi.domain.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +14,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
 public class LoggerController {
 
+  private static final String INFO = "INFO";
+  private static final String WARN = "WARN";
+  private static final String ERROR = "ERROR";
   private final LogRepository logRepository;
-
-  @Autowired
-  public LoggerController(LogRepository logRepository) {
-    this.logRepository = logRepository;
+  
+  public LoggerController() {
+    String connectionString = System.getenv("CONNECTION_STRING"); //"";
+    String databaseName = System.getenv("DATABASE_NAME"); //"";
+    String collectionName = System.getenv("COLLECTION_NAME"); //"";
+    this.logRepository = new DefaultLogRepository(new MongoAdapter<LogBson>(new LogAdapter(), connectionString, databaseName, collectionName));
   }
 
   @GetMapping("/getLogs")
@@ -27,32 +37,33 @@ public class LoggerController {
 
   @PutMapping(name="info", value = "/info", consumes=MediaType.APPLICATION_JSON_VALUE )
   public ResponseEntity<Void> info(@RequestBody LogRepresentation logRepresentation){
-    logRepository.storeLog(adapt(logRepresentation).get());
+    logRepository.storeLog(adapt(logRepresentation, INFO).get());
     return ResponseEntity.accepted().build();
   }
 
   @PutMapping("/warn")
   public ResponseEntity<Void> warn(@RequestBody LogRepresentation logRepresentation){
-    logRepository.storeLog(adapt(logRepresentation).get());
+    logRepository.storeLog(adapt(logRepresentation, WARN).get());
     return ResponseEntity.accepted().build();
   }
 
   @PutMapping("/error")
-  public ResponseEntity<Void> error(){ return null; }
+  public ResponseEntity<Void> error(@RequestBody LogRepresentation logRepresentation){
+    logRepository.storeLog(adapt(logRepresentation, ERROR).get());
+    return ResponseEntity.accepted().build();
+  }
 
   private static class LogRepresentation {
     public String source;
     public String message;
-    public String level;
-    public String time;
 
     public LogRepresentation() {
     }
 
   }
 
-  private static Optional<Log> adapt(LogRepresentation logRepresentation){
-    return Optional.of(new Log(logRepresentation.source, logRepresentation.message, logRepresentation.level, logRepresentation.time));
+  private static Optional<Log> adapt(LogRepresentation logRepresentation, String level){
+    return Optional.of(new Log(logRepresentation.source, logRepresentation.message, level, new Date().toString()));
   }
 
 }

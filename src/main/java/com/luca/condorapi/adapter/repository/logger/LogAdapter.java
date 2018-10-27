@@ -5,6 +5,7 @@ import com.luca.condorapi.adapter.repository.logger.bson.LogBson;
 import org.bson.Document;
 
 public class LogAdapter implements MongoAdapter.Adapter<LogBson> {
+
     @Override
     public LogBson adapt(Document doc) {
         return new LogBson.Builder()
@@ -22,4 +23,6 @@ public class LogAdapter implements MongoAdapter.Adapter<LogBson> {
                 .append("level", logBson.getLevel())
                 .append("time", logBson.getTime());
     }
+
+
 }

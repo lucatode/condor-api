@@ -24,7 +24,7 @@ public class LoggerControllerTest {
   @Before
   public void setUp(){
     fakeRepo = new ArrayList<>();
-    mvc = standaloneSetup(new LoggerController((fakeRepo::add))).build();
+    mvc = standaloneSetup(new LoggerController()).build();
   }
 
   @Test
@@ -38,7 +38,6 @@ public class LoggerControllerTest {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content("{\"source\"  :\"source\"," +
                     "  \"message\" :\"message\"," +
-                    "  \"level\"   :\"info\"," +
                     "  \"time\"    :\"time\"" +
                     "}"))
             .andExpect(status().isAccepted());
@@ -58,7 +57,6 @@ public class LoggerControllerTest {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content("{\"source\"  :\"source\"," +
                     "  \"message\" :\"message\"," +
-                    "  \"level\"   :\"warn\"," +
                     "  \"time\"    :\"time\"" +
                     "}"))
             .andExpect(status().isAccepted());
