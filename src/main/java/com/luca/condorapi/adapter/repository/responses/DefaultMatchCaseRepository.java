@@ -16,7 +16,7 @@ public class DefaultMatchCaseRepository  {
 
 
     public List<MatchCase> getAll(){
-        return this.mongodb.getAll().stream().map(x -> new MatchCase(x.getMatchExact(),x.getRequest(),x.getResponse())).collect(Collectors.toList());
+        return this.mongodb.getAll().stream().map(x -> new MatchCase(x.getId(), x.getMatchExact(),x.getRequest(),x.getResponse())).collect(Collectors.toList());
     }
 
     public void storeMatchCase(MatchCase matchCase) {

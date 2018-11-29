@@ -5,10 +5,10 @@ import com.luca.condorapi.adapter.repository.responses.DefaultMatchCaseRepositor
 import com.luca.condorapi.adapter.repository.responses.MatchCaseAdapter;
 import com.luca.condorapi.domain.MatchCase;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +29,11 @@ public class VauthResponsesController {
     ResponseEntity<List<MatchCase>> get() {
         List<MatchCase> matchCases = defaultMatchCaseRepository.getAll();
         return new ResponseEntity<>(matchCases, HttpStatus.OK);
+    }
+
+    @PostMapping(name="info", value = "/addMatch", consumes= MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<Void> addMatch(@RequestBody MatchCase matchCase){
+        defaultMatchCaseRepository.storeMatchCase(matchCase);
+        return ResponseEntity.accepted().build();
     }
 }
