@@ -35,8 +35,14 @@ public class VauthResponsesController {
     @CrossOrigin
     @PostMapping(name="info", value = "/addMatch", consumes= MediaType.APPLICATION_JSON_VALUE )
     public ResponseEntity<Void> addMatch(@RequestBody MatchCase matchCase){
-        defaultMatchCaseRepository.storeMatchCase(matchCase);
-        return ResponseEntity.accepted().build();
+        try {
+            defaultMatchCaseRepository.storeMatchCase(matchCase);
+            return ResponseEntity.accepted().build();
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @CrossOrigin
