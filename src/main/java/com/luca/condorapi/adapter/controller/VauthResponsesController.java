@@ -24,6 +24,7 @@ public class VauthResponsesController {
         defaultMatchCaseRepository = new DefaultMatchCaseRepository(new MongoAdapter<>(new MatchCaseAdapter(),connectionString,databaseName,collectionName));
     }
 
+    @CrossOrigin
     @GetMapping("/getMatch")
     public @ResponseBody
     ResponseEntity<List<MatchCase>> get() {
