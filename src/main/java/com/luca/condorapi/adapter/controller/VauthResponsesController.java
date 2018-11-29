@@ -40,6 +40,13 @@ public class VauthResponsesController {
     }
 
     @CrossOrigin
+    @PostMapping(name="info", value = "/editMatch", consumes= MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<Void> edit(@RequestBody MatchCase matchCase){
+        defaultMatchCaseRepository.editMatchCase(matchCase);
+        return ResponseEntity.accepted().build();
+    }
+
+    @CrossOrigin
     @GetMapping(value = "/deleteMatch/{id}")
     public ResponseEntity<Void> deleteMatch(@PathVariable String id){
         defaultMatchCaseRepository.deleteMatchCase(id);

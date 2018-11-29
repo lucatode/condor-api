@@ -77,7 +77,7 @@ public class MongoAdapter<BSON_ENTITY> {
     public void updateDocument(String id, BSON_ENTITY newEntity){
         openConnection();
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        collection.updateOne(eq("id",id), new Document("$set", adapter.reverseAdapt(newEntity)) );
+        collection.updateOne(eq("_id", new ObjectId(id)), new Document("$set", adapter.reverseAdapt(newEntity)) );
         closeConnection();
     }
 
