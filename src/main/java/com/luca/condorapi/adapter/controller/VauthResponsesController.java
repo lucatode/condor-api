@@ -38,4 +38,11 @@ public class VauthResponsesController {
         defaultMatchCaseRepository.storeMatchCase(matchCase);
         return ResponseEntity.accepted().build();
     }
+
+    @CrossOrigin
+    @PostMapping(name="info", value = "/deleteMatch", consumes= MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<Void> deleteMatch(@RequestBody String id){
+        defaultMatchCaseRepository.deleteMatchCase(id);
+        return ResponseEntity.accepted().build();
+    }
 }

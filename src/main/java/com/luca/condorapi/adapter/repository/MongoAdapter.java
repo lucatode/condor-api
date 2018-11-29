@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,7 @@ public class MongoAdapter<BSON_ENTITY> {
     public long deleteDocument(String id){
         openConnection();
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        DeleteResult id1 = collection.deleteOne(eq("id", id));
+        DeleteResult id1 = collection.deleteOne(eq("_id", new ObjectId(id)));
 
         return id1.getDeletedCount();
     }

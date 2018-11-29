@@ -23,6 +23,10 @@ public class DefaultMatchCaseRepository  {
         mongodb.insertDocument(MatchCaseBson.Builder.fromMatchCase(matchCase).build());
     }
 
+    public void deleteMatchCase(String id){
+        mongodb.deleteDocument(id);
+    }
+
     public static final class DefaultMatchCaseRepositoryBuilder {
         private MongoAdapter<MatchCaseBson> mongodb;
 
