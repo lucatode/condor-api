@@ -31,6 +31,7 @@ public class VauthResponsesController {
         return new ResponseEntity<>(matchCases, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping(name="info", value = "/addMatch", consumes= MediaType.APPLICATION_JSON_VALUE )
     public ResponseEntity<Void> addMatch(@RequestBody MatchCase matchCase){
         defaultMatchCaseRepository.storeMatchCase(matchCase);
