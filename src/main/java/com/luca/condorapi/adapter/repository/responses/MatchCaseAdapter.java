@@ -14,6 +14,7 @@ public class MatchCaseAdapter implements MongoAdapter.Adapter<MatchCaseBson> {
                 .withMatchExact((Boolean) doc.get("MatchExact"))
                 .withRequest((String) doc.get("Request"))
                 .withResponse((String) doc.get("Response"))
+                .withIgnoreCase((Boolean) doc.get("IgnoreCase"))
                 .build();
     }
 
@@ -25,7 +26,8 @@ public class MatchCaseAdapter implements MongoAdapter.Adapter<MatchCaseBson> {
     public Document reverseAdapt(MatchCaseBson logBson) {
         return new Document("MatchExact", logBson.getMatchExact())
                 .append("Request", logBson.getRequest())
-                .append("Response", logBson.getResponse());
+                .append("Response", logBson.getResponse())
+                .append("IgnoreCase", logBson.getIgnoreCase());
     }
 
 
