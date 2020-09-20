@@ -11,7 +11,7 @@ public class MatchCaseAdapter implements MongoAdapter.Adapter<MatchCaseBson> {
     public MatchCaseBson adapt(Document doc) {
         return new MatchCaseBson.Builder()
                 .withId(getId(doc))
-                .withMatchExact((Boolean) doc.get("MatchExact"))
+                .withMatchExact((Boolean) doc.get("ExactMatch"))
                 .withRequest((String) doc.get("Request"))
                 .withResponse((String) doc.get("Response"))
                 .withIgnoreCase((Boolean) doc.get("IgnoreCase"))
