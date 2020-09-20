@@ -24,7 +24,7 @@ public class MatchCaseAdapter implements MongoAdapter.Adapter<MatchCaseBson> {
 
     @Override
     public Document reverseAdapt(MatchCaseBson logBson) {
-        return new Document("MatchExact", logBson.getMatchExact())
+        return new Document("ExactMatch", logBson.getMatchExact())
                 .append("Request", logBson.getRequest())
                 .append("Response", logBson.getResponse())
                 .append("IgnoreCase", logBson.getIgnoreCase());
