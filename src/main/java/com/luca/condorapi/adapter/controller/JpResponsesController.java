@@ -16,8 +16,8 @@ import java.util.List;
 public class JpResponsesController
 {
 
-    String connectionString = System.getenv("CONNECTION_STRING_JP_RESPONSES"); //"";
-    String databaseName = System.getenv("DATABASE_NAME_JP_RESPONSES"); //"";
+    String connectionString = System.getenv("CONNECTION_STRING"); //"";
+    String databaseName = System.getenv("DATABASE_NAME"); //"";
     String collectionName = System.getenv("COLLECTION_NAME_JP_RESPONSES"); //"";
     private DefaultMatchCaseRepository defaultMatchCaseRepository;
 

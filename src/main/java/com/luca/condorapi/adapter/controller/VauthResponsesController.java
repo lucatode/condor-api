@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 public class VauthResponsesController {
 
-    String connectionString = System.getenv("CONNECTION_STRING_VAUTH_RESPONSES");
-    String databaseName = System.getenv("DATABASE_NAME_VAUTH_RESPONSES");
+    String connectionString = System.getenv("CONNECTION_STRING");
+    String databaseName = System.getenv("DATABASE_NAME");
     String collectionName = System.getenv("COLLECTION_NAME_VAUTH_RESPONSES");
     private DefaultMatchCaseRepository defaultMatchCaseRepository;
 
