@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.Optional;
@@ -34,24 +31,28 @@ public class LoggerController {
     this.logRepository = new DefaultLogRepository(new MongoAdapter<LogBson>(new LogAdapter(), connectionString, databaseName, collectionName));
   }
 
+  @CrossOrigin
   @GetMapping("/getLogs")
   public @ResponseBody
   ResponseEntity<String> get() {
     return new ResponseEntity<String>("", HttpStatus.OK);
   }
 
+  @CrossOrigin
   @PutMapping(name="info", value = "/info", consumes=MediaType.APPLICATION_JSON_VALUE )
   public ResponseEntity<Void> info(@RequestBody LogRepresentation logRepresentation){
     logRepository.storeLog(adapt(logRepresentation, INFO).get());
     return ResponseEntity.accepted().build();
   }
 
+  @CrossOrigin
   @PutMapping("/warn")
   public ResponseEntity<Void> warn(@RequestBody LogRepresentation logRepresentation){
     logRepository.storeLog(adapt(logRepresentation, WARN).get());
     return ResponseEntity.accepted().build();
   }
 
+  @CrossOrigin
   @PutMapping("/error")
   public ResponseEntity<Void> error(@RequestBody LogRepresentation logRepresentation){
     logRepository.storeLog(adapt(logRepresentation, ERROR).get());
