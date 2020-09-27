@@ -28,9 +28,9 @@ public class LoggerController {
   private final LogRepository logRepository;
   
   public LoggerController() {
-    String connectionString = System.getenv("CONNECTION_STRING_LOGGER"); //"";
-    String databaseName = System.getenv("DATABASE_NAME_LOGGER"); //"";
-    String collectionName = System.getenv("COLLECTION_NAME_LOGGER"); //"";
+    String connectionString = System.getenv("CONNECTION_STRING"); //"";
+    String databaseName = System.getenv("DATABASE_NAME"); //"";
+    String collectionName = System.getenv("COLLECTION_NAME_LOGGER_RESPONSES"); //"";
     this.logRepository = new DefaultLogRepository(new MongoAdapter<LogBson>(new LogAdapter(), connectionString, databaseName, collectionName));
   }
 
